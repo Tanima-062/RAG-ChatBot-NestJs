@@ -1,28 +1,29 @@
-# RAG Chatbot (NestJS + MySQL)
+# RAG ChatBot NestJS
 
-Quick start (local with Docker)
+A PDF-based RAG (Retrieval-Augmented Generation) chatbot using NestJS, BM25 search, and OpenAI.
 
-1. Copy project files to a folder.
-2. Create `.env` from `.env.example` and fill values.
-3. Start MySQL and app container: `docker-compose up -d`
-4. Install deps locally (if running without container): `npm install`
-5. Run the server locally: `npm run start:dev` (or Docker container will run built app)
+---
 
-Usage
+## Prerequisites
 
-- Upload PDF: `POST /pdf/upload` (multipart form `file` + optional `docName`)
-- Ask question: `POST /qa` with JSON `{ "question": "..." }`
+- Node.js >= 20  
+- npm >= 11  
+- Docker & Docker Compose (optional)  
+- OpenAI API key (for AI-enhanced answers)
 
-Optional: Embeddings
+---
 
-Set `OPENAI_API_KEY` and run:
+## Setup Instructions
 
-```
-npm run generate:embeddings
-```
+### Clone the repository
 
-This will populate `embedding` column for each chunk. After that QA endpoint will prefer embedding retrieval and (if key present) use OpenAI LLM for final answer.
+```bash
+git clone https://github.com/Tanima-062/RAG-ChatBot-NestJs.git
+cd RAG-ChatBot-NestJs
 
-Notes
+### docker-compose.yml or .env
+set OPENAI_API_KEY="your_openai_api_key_here"
 
-- For production, replace `synchronize: true` with migrations and use a vector DB for scale.
+npm install
+npm start
+
