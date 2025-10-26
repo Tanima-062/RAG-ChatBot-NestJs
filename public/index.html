@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot</title>
+<style>
+body { font-family: Arial; max-width: 700px; margin: 2rem auto; background: #f7f7f7; }
+h1 { text-align: center; }
+#chatbox { background: #fff; padding: 1rem; min-height: 300px; overflow-y: auto; border-radius: 8px; }
+.message { margin: 0.5rem 0; padding: 0.5rem 1rem; border-radius: 20px; max-width: 80%; clear: both; }
+.user { background-color: #d1e7ff; float: right; }
+.bot { background-color: #e2e2e2; float: left; }
+#questionInput { width: 80%; padding: 0.5rem; font-size: 1rem; }
+#sendBtn { padding: 0.55rem 1rem; margin-left: 0.5rem; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Chatbot</h1>
+<div id="chatbox"></div>
+<input type="text" id="questionInput" placeholder="Ask a question..." />
+<button id="sendBtn">Send</button>
+
+<script>
+const chatbox = document.getElementById('chatbox');
+const input = document.getElementById('questionInput');
+const btn = document.getElementById('sendBtn');
+
+async function sendQuestion() {
+  const question = input.value.trim();
+  if(!question) return;
+  addMessage(question, 'user');
+  input.value = '';
+
+  try {
+    const res = await fetch('/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question })
+    });
+    const data = await res.json();
+    addMessage(data.answer || 'No answer found.', 'bot');
+  } catch(e) {
+    addMessage('Error connecting to server.', 'bot');
+  }
+}
+
+function addMessage(msg, sender) {
+  const div = document.createElement('div');
+  div.classList.add('message', sender);
+  div.textContent = msg;
+  chatbox.appendChild(div);
+  chatbox.scrollTop = chatbox.scrollHeight;
+}
+
+btn.addEventListener('click', sendQuestion);
+input.addEventListener('keypress', e => { if(e.key==='Enter') sendQuestion(); });
+</script>
+</body>
+</html>

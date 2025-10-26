@@ -1,0 +1,35 @@
+{
+  "name": "rag-chatbot-nest",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "nest start",
+    "start:dev": "ts-node-dev --respawn --transpile-only src/main.ts",
+    "build": "nest build"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/typeorm": "^11.0.0",
+    "typeorm": "^0.3.20",
+    "mysql2": "^3.3.0",
+    "pdf-parse": "^1.1.1",
+    "multer": "^1.4.5-lts.1",
+    "wink-bm25-text-search": "^3.1.2",
+    "wink-nlp-utils": "^1.0.7",
+    "openai": "^4.9.0",
+    "axios": "^1.7.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.0",
+    "@nestjs/schematics": "^11.0.0",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6"
+  },
+  "engines": {
+    "node": ">=20.19.5 <21",
+    "npm": ">=11.6.2"
+  }
+}
